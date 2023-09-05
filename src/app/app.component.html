@@ -1,7 +1,12 @@
-<nav>
-  <ul>
-    <li><a routerLink="/">Home</a></li>
-    <li><a routerLink="/dynamic-forms">Het Spel</a></li>
-  </ul>
-</nav>
+<!DOCTYPE html>
+<body>
+   <!-- Load an icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <div class="navbar">
+    <a class="active" routerLink="/"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a routerLink="/dynamic-forms"><i class="fa fa-fw fa-pencil-square-o"></i> Score Card</a>
+  </div> 
+</body>
+
 <router-outlet></router-outlet>
