@@ -25,7 +25,7 @@ export class DynamicFormsComponent implements OnInit{
   }
 
   generatePlayerInputs() {
-    this.players = new Array(this.numberOfPlayers).fill(null).map(_ => ({ name: 'Player' }));
+    this.players = new Array(this.numberOfPlayers).fill(null).map(_ => ({ name: null }));
   }
 
   calculateSum(form: any) {
