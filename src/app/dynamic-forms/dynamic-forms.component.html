@@ -57,14 +57,18 @@
               <div>
                 <input type="number" id="round6" min="0" max="36" [(ngModel)]="form.round6">
               </div>
-              <p>Sum: {{ calculateSum(form) }}</p>
+              <p *ngIf="totalSum[i] == lowestValue" style="color: green; font-weight: bold;">Sum: {{ calculateSum(form, i) }}</p>
+              <p *ngIf="totalSum[i] != lowestValue">Sum: {{ calculateSum(form, i) }}</p>
             </div>
           </td>
         </ng-container>
       </tr>
     </table>
 
+    <div style="width: 100px; height: 100px; position: absolute; bottom: 0; right: 0; background-color: white;" (click)="setDefaultPlayers()"></div>
+
     <button type="button" (click)="generateForms()">Clear Form Values</button>
     <button type="button" (click)="generatePlayerInputs()">Clear Players</button>
+    <button type="button" (click)="chooseRandomPlayer()">Choose Beginner</button>
   </body>
 </html>
