@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-dynamic-forms',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dynamic-forms.component.scss']
 })
 
-export class DynamicFormsComponent implements OnInit{
+export class DynamicFormsComponent implements OnInit, AfterViewInit {
+  @ViewChild('helloModal') helloEl?: ElementRef;
+  modal?: bootstrap.Modal;
+
   numberOfPlayers: number = 2;
   lowestValue: number = -1;
   forms: any[] = [];
@@ -15,6 +19,14 @@ export class DynamicFormsComponent implements OnInit{
 
   ngOnInit(): void {
     this.onModelChange();
+  }
+
+  ngAfterViewInit() {
+    this.modal = new bootstrap.Modal(this.helloEl?.nativeElement, {});
+  }
+
+  triggerModal() {
+    this.modal?.toggle();
   }
 
   onModelChange(){
@@ -63,5 +75,6 @@ export class DynamicFormsComponent implements OnInit{
     this.players[2] = ({ name: 'Marlinda' })
     this.players[3] = ({ name: 'Ivonne' })
     this.generateForms();
+    this.triggerModal();
   }
 }
