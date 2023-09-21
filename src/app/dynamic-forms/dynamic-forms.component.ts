@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import * as bootstrap from 'bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-dynamic-forms',
@@ -7,9 +7,8 @@ import * as bootstrap from 'bootstrap';
   styleUrls: ['./dynamic-forms.component.scss']
 })
 
-export class DynamicFormsComponent implements OnInit, AfterViewInit {
-  @ViewChild('helloModal') helloEl?: ElementRef;
-  modal?: bootstrap.Modal;
+export class DynamicFormsComponent implements OnInit {
+  constructor(private cookieService: CookieService) { }
 
   numberOfPlayers: number = 2;
   lowestValue: number = -1;
@@ -18,15 +17,9 @@ export class DynamicFormsComponent implements OnInit, AfterViewInit {
   players: any[] = [];
 
   ngOnInit(): void {
-    this.onModelChange();
-  }
-
-  ngAfterViewInit() {
-    this.modal = new bootstrap.Modal(this.helloEl?.nativeElement, {});
-  }
-
-  triggerModal() {
-    this.modal?.toggle();
+    this.generatePlayerInputs();
+    this.getCookieAndSetValues();
+    this.generateForms();
   }
 
   onModelChange(){
@@ -40,19 +33,28 @@ export class DynamicFormsComponent implements OnInit, AfterViewInit {
   }
 
   generatePlayerInputs() {
-    this.players = new Array(this.numberOfPlayers).fill(null).map(_ => ({ name: null }));
+    this.players = new Array(this.numberOfPlayers).fill(null).map(_ => ({ name: '' }));
+    const playerArrayCookie = this.cookieService.get('playerArray')
+    if (playerArrayCookie) {
+      var playerArray = JSON.parse(playerArrayCookie)
+      
+      this.players.forEach((value, index) => {
+        if(index < playerArray.length){
+          this.players[index] = playerArray[index]?.name != undefined ? { name: `${playerArray[index].name}` } : null
+        }
+      })
+    }
   }
 
   calculateSum(form: any, index: number) {
     const totalSum = form.round1 + form.round2 + form.round3 + form.round4 + form.round5 + form.round6;
     this.totalSum[index] = totalSum;
-    this.checkLowest();
     return totalSum;
   }
 
-  checkLowest(){
-    const lowest = Math.min.apply(Math, this.totalSum)
-    this.lowestValue = lowest;
+  clearAllPlayers(){
+    this.players = new Array(this.numberOfPlayers).fill(null).map(_ => ({ name: '' }));
+    this.cookieService.delete('playerArray');
   }
 
   chooseRandomPlayer(){
@@ -67,14 +69,16 @@ export class DynamicFormsComponent implements OnInit, AfterViewInit {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
-  setDefaultPlayers(){
-    this.numberOfPlayers = 4
-    this.generatePlayerInputs();
-    this.players[0] = ({ name: 'Bram' })
-    this.players[1] = ({ name: 'John' })
-    this.players[2] = ({ name: 'Marlinda' })
-    this.players[3] = ({ name: 'Ivonne' })
-    this.generateForms();
-    this.triggerModal();
+  setCookie(){
+    this.cookieService.set('playerArray', JSON.stringify(this.players))
+  }
+
+  getCookieAndSetValues(){
+    const playerArrayCookie = this.cookieService.get('playerArray')
+    if (playerArrayCookie) {
+      var playerArray = JSON.parse(playerArrayCookie)
+      this.players = playerArray;
+      this.numberOfPlayers = playerArray.length;
+    }
   }
 }
