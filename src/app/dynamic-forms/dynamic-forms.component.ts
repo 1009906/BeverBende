@@ -49,7 +49,7 @@ export class DynamicFormsComponent implements OnInit {
   calculateSum(form: any, index: number) {
     const totalSum = form.round1 + form.round2 + form.round3 + form.round4 + form.round5 + form.round6;
     this.totalSum[index] = totalSum;
-    return totalSum;
+    return this.checkLowest(index);
   }
 
   clearAllPlayers(){
@@ -65,12 +65,22 @@ export class DynamicFormsComponent implements OnInit {
     alert(`${this.players[randomIndex].name} is the first Player!`)
   }
 
+  checkLowest(index : number){
+    var min = Math.min.apply(Math, this.totalSum)
+    if (this.totalSum[index] == min){
+      return 'lowest';
+    }
+    return '';
+  }
+
   randomIntFromInterval(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
   setCookie(){
-    this.cookieService.set('playerArray', JSON.stringify(this.players))
+    const expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 100);
+    this.cookieService.set('playerArray', JSON.stringify(this.players), expirationDate)
   }
 
   getCookieAndSetValues(){
