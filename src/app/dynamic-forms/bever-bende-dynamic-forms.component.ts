@@ -3,11 +3,11 @@ import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-dynamic-forms',
-  templateUrl: './dynamic-forms.component.html',
-  styleUrls: ['./dynamic-forms.component.scss']
+  templateUrl: './bever-bende-dynamic-forms.component.html',
+  styleUrls: ['./bever-bende-dynamic-forms.component.scss']
 })
 
-export class DynamicFormsComponent implements OnInit {
+export class BeverBendeDynamicFormsComponent implements OnInit {
   constructor(private cookieService: CookieService) { }
 
   numberOfPlayers: number = 2;

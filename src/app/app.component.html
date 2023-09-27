@@ -4,9 +4,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <div class="custom-navbar">
-    <a class="active" routerLink="/"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a routerLink="/dynamic-forms"><i class="fa fa-fw fa-pencil-square-o"></i> Score Card</a>
+    <a routerLink="/"><i class="fa fa-fw fa-home"></i> Home</a>
+    <div class="custom-dropdown">
+      <button class="dropbtn"><i class="fa fa-fw fa-gamepad"></i> BeverBende 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="custom-dropdown-content">
+        <a routerLink="/home-bever-bende"><i class="fa fa-fw fa-file-text-o"></i> Description</a>
+        <a routerLink="/dynamic-forms"><i class="fa fa-fw fa-pencil-square-o"></i> Score Card</a>
+      </div>
+    </div>
   </div> 
+
 </body>
 
 <router-outlet></router-outlet>
