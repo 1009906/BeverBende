@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Yathzee Score Card</h1>
+    <div>
+      <label for="numberOfPlayers">Enter the number of players: </label>
+      <input type="number" id="numberOfPlayers" value="2" min="2" max="8" [(ngModel)]="numberOfPlayers" (ngModelChange)="onModelChange()"><br><br>
+    </div>
+
+    <div *ngFor="let player of players; let i = index">
+      <label>Name Player {{ i + 1 }}: </label>
+      <input type="text" [(ngModel)]="player.name" (ngModelChange)="setCookie()" value="Player {{ i + 1 }}">
+    </div>
+
+    <table>
+      <tr>
+        <ng-container *ngFor="let form of forms; let i = index">
+          <td *ngIf="i == 0">
+            <div class="form-labels">
+              <div>
+                <input type="text" value="Aces: " readonly="true">
+              </div>
+              <div>
+                <input type="text" value="Twos: " readonly="true">
+              </div>
+              <div>
+                <input type="text" value="Threes: " readonly="true">
+              </div>
+              <div>
+                <input type="text" value="Fours: " readonly="true">
+              </div>
+              <div>
+                <input type="text" value="Fives: " readonly="true">
+              </div>
+              <div>
+                <input type="text" value="Sixes: " readonly="true">
+              </div>
+              <hr>
+              <div>
+                <input type="text" value="3 of a kind: " readonly="true">
+              </div>
+              <div>
+                <input type="text" value="4 of a kind: " readonly="true">
+              </div>
+              <div>
+                <input type="text" value="Full house: " readonly="true">
+              </div>
+              <div>
+                <input type="text" value="Small straight: " readonly="true">
+              </div>
+              <div>
+                <input type="text" value="Large straight: " readonly="true">
+              </div>
+              <div>
+                <input type="text" value="5 of a kind: " readonly="true">
+              </div>
+              <div>
+                <input type="text" value="Chance: " readonly="true">
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="form-container">
+              <p>{{ i + 1 }}: {{ players[i].name }}</p>
+              <div>
+                <input type="number" id="aces" min="0" max="5" step="1" [(ngModel)]="form.aces">
+              </div>
+              <div>
+                <input type="number" id="twos" min="0" max="10" step="2" [(ngModel)]="form.twos">
+              </div>
+              <div>
+                <input type="number" id="threes" min="0" max="15" step="3" [(ngModel)]="form.threes">
+              </div>
+              <div>
+                <input type="number" id="fours" min="0" max="20" step="4" [(ngModel)]="form.fours">
+              </div>
+              <div>
+                <input type="number" id="fives" min="0" max="25" step="5" [(ngModel)]="form.fives">
+              </div>
+              <div>
+                <input type="number" id="sixes" min="0" max="30" step="6" [(ngModel)]="form.sixes">
+              </div>
+              <hr>
+              <div>
+                <input type="number" id="threeofkind" min="0" max="30" [(ngModel)]="form.threeofkind">
+              </div>
+              <div>
+                <input type="number" id="fourofkind" min="0" max="30" [(ngModel)]="form.fourofkind">
+              </div>
+              <div>
+                <input type="number" id="fullhouse" min="0" max="25" step="25" [(ngModel)]="form.fullhouse">
+              </div>
+              <div>
+                <input type="number" id="smallstraight" min="0" max="30" step="30" [(ngModel)]="form.smallstraight">
+              </div>
+              <div>
+                <input type="number" id="largestraight" min="0" max="40" step="40" [(ngModel)]="form.largestraight">
+              </div>
+              <div>
+                <input type="number" id="yathzee" min="0" step="50" [(ngModel)]="form.yathzee">
+              </div>
+              <div>
+                <input type="number" id="chance" min="0" max="30" [(ngModel)]="form.chance">
+              </div>
+              <p>Sum: {{ calculateTotal(form, i) }}</p>
+            </div>
+          </td>
+        </ng-container>
+      </tr>
+    </table>
+
+    <button type="button" class="btn btn-warning" (click)="generateForms()">Clear Form Values</button>
+    <button type="button" class="btn btn-danger" (click)="clearAllPlayers()">Clear Players</button>
+    <button type="button" class="btn btn-success" (click)="chooseRandomPlayer()">Choose Beginner</button>
+  </body>
+</html>

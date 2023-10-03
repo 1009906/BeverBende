@@ -5,15 +5,27 @@
 
   <div class="custom-navbar">
     <a routerLink="/"><i class="fa fa-fw fa-home"></i> Home</a>
+
     <div class="custom-dropdown">
       <button class="dropbtn"><i class="fa fa-fw fa-gamepad"></i> BeverBende 
         <i class="fa fa-caret-down"></i>
       </button>
-      <div class="custom-dropdown-content">
+      <div class="custom-dropdown-content" id="custom-dropdown-content">
         <a routerLink="/home-bever-bende"><i class="fa fa-fw fa-file-text-o"></i> Description</a>
         <a routerLink="/dynamic-forms"><i class="fa fa-fw fa-pencil-square-o"></i> Score Card</a>
       </div>
     </div>
+
+    <div class="custom-dropdown">
+      <button class="dropbtn"><i class="fa fa-fw fa-gamepad"></i> Yahtzee 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="custom-dropdown-content" id="custom-dropdown-content">
+        <a routerLink="/home-yathzee"><i class="fa fa-fw fa-file-text-o"></i> Description</a>
+        <a routerLink="/yathzee-score-card"><i class="fa fa-fw fa-pencil-square-o"></i> Score Card</a>
+      </div>
+    </div>
+    
   </div> 
 
 </body>

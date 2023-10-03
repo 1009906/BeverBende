@@ -59,8 +59,14 @@
   
   /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
   @media screen and (max-width: 500px) {
-    .custom-navbar a {
+    .custom-navbar a{
       float: none;
       display: block;
+      text-align: center;
+    }
+    .custom-navbar .custom-dropdown{
+      float: none;
+      display: block;
+      text-align: center;
     }
   } 
