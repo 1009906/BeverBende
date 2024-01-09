@@ -8,3 +8,9 @@
 input[type=number]{
     width: 70px;
 }
+
+.button-container{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+}

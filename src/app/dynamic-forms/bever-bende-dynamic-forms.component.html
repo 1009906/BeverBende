@@ -9,7 +9,7 @@
 
     <div *ngFor="let player of players; let i = index">
       <label>Name Player {{ i + 1 }}: </label>
-      <input type="text" [(ngModel)]="player.name" (ngModelChange)="setCookie()" value="Player {{ i + 1 }}">
+      <input type="text" [(ngModel)]="player.name" (ngModelChange)="setCookiePlayers()" value="Player {{ i + 1 }}">
     </div>
 
     <table>
@@ -65,8 +65,11 @@
       </tr>
     </table>
 
-    <button type="button" class="btn btn-warning" (click)="generateForms()">Clear Form Values</button>
-    <button type="button" class="btn btn-danger" (click)="clearAllPlayers()">Clear Players</button>
-    <button type="button" class="btn btn-success" (click)="chooseRandomPlayer()">Choose Beginner</button>
+    <div class="button-container">
+      <button type="button" class="btn btn-warning" (click)="generateForms()">Clear Form Values</button>
+      <button type="button" class="btn btn-danger" (click)="clearAllPlayers()">Clear Players</button>
+      <button type="button" class="btn btn-success" (click)="chooseRandomPlayer()">Choose Beginner</button>
+      <button type="button" class="btn btn-warning" (click)="restoreLastState()">Restore Last Game</button>
+    </div>
   </body>
 </html>

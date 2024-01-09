@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./bever-bende-dynamic-forms.component.scss']
 })
 
-export class BeverBendeDynamicFormsComponent implements OnInit {
+export class BeverBendeDynamicFormsComponent implements OnInit, OnDestroy {
   constructor(private cookieService: CookieService) { }
 
   numberOfPlayers: number = 2;
@@ -20,6 +20,11 @@ export class BeverBendeDynamicFormsComponent implements OnInit {
     this.generatePlayerInputs();
     this.getCookieAndSetValues();
     this.generateForms();
+  }
+
+  ngOnDestroy(): void {
+    this.setCookieLastPlayers();
+    this.setCookieScore();
   }
 
   onModelChange(){
@@ -77,14 +82,43 @@ export class BeverBendeDynamicFormsComponent implements OnInit {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
-  setCookie(){
+  setCookiePlayers(){
     const expirationDate = new Date();
     expirationDate.setFullYear(expirationDate.getFullYear() + 100);
     this.cookieService.set('playerArray', JSON.stringify(this.players), expirationDate)
   }
 
+  setCookieLastPlayers(){
+    const expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 100);
+    this.cookieService.set('lastPlayerArray', JSON.stringify(this.players), expirationDate)
+  }
+
+  setCookieScore(){
+    const expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 100);
+    this.cookieService.set('scoreArray', JSON.stringify(this.forms), expirationDate)
+  }
+
   getCookieAndSetValues(){
     const playerArrayCookie = this.cookieService.get('playerArray')
+    if (playerArrayCookie) {
+      var playerArray = JSON.parse(playerArrayCookie)
+      this.players = playerArray;
+      this.numberOfPlayers = playerArray.length;
+    }
+  }
+
+  restoreLastState() {
+    //Score
+    const scoreArrayCookie = this.cookieService.get('scoreArray')
+    if (scoreArrayCookie) {
+      var scoreArray = JSON.parse(scoreArrayCookie)
+      this.forms = scoreArray;
+    }
+
+    //Players
+    const playerArrayCookie = this.cookieService.get('lastPlayerArray')
     if (playerArrayCookie) {
       var playerArray = JSON.parse(playerArrayCookie)
       this.players = playerArray;
