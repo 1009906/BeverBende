@@ -14,16 +14,16 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+Deploy to Github-Pages
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Switch to gh-pages branch
+Merge master into gh-pages branch
 
-## Running end-to-end tests
+Execute the following command ->
+ng build --output-path docs --base-href /BeverBende/
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+When the build is complete, make a copy of docs/index.html and name it docs/404.html.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Commit your changes and push.
 
 https://angular.io/guide/deployment
